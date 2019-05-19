@@ -1,6 +1,6 @@
-package com.wn.mybatis;
+package com.wn.mybatis.mybatis;
 
-import com.wn.test.pojo.User;
+import com.wn.mybatis.pojo.User;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;

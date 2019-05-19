@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- mapper:根标签，namespace：命名空间，随便写，一般保证命名空间唯一 -->
+<mapper namespace="UserDao">
+    <!-- statement，内容：sql语句。id：唯一标识，随便写，在同一个命名空间下保持唯一
+       resultType：sql语句查询结果集的封装类型,tb_user即为数据库中的表
+     -->
+    <sql id="baseColumns">
+        id,user_name as userName,password,name,sex,age,birthday,created,updated
+    </sql>
+
+    <select id="queryUserById" parameterType="string" resultType="com.wn.mybatis.pojo.User">
+        select
+        <include refid="baseColumns"/>
+        from tb_user
+        where id = #{id}
+    </select>
+
+    <select id="queryUserAll" resultType="com.wn.mybatis.pojo.User">
+        select
+        <include refid="baseColumns"/>
+        from tb_user
+    </select>
+
+    <insert id="insertUser" parameterType="com.wn.mybatis.pojo.User">
+        insert into tb_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <include refid="baseColumns"/>
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            #{id},
+            #{userName},
+            #{password},
+            #{name},
+            #{sex},
+            #{age},
+            #{birthday},
+            now(),
+            now(),
+        </trim>
+    </insert>
+
+    <update id="updateUser">
+        update tb_user
+        <trim prefix="set" suffixOverrides=",">
+            <if test="userName != null and userName != ''">
+                user_name = #{userName},
+            </if>
+            <if test="password !=null and password !=''">
+                password = #{password},
+            </if>
+            <if test="name != null and name !=''">
+                name = #{name},
+            </if>
+            <if test="age != null">
+                age = #{age},
+            </if>
+            <if test="sex != null">
+                sex = #{sex},
+            </if>
+            <if test="birthday != null">
+                birthday = #{birthday},
+            </if>
+            updated = sysdate(),
+        </trim>
+        where
+        id = #{id}
+    </update>
+
+    <delete id="deleteUser" parameterType="string">
+        delete from tb_user where id = #{id}
+    </delete>
+</mapper>
