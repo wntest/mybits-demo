@@ -1,27 +1,18 @@
 package com.wn.mybatis.pojo;
-import java.io.Serializable;
+
 import java.util.Date;
 
-public class User implements Serializable {
-    private int id;
+public class OrderUser extends Order {
     private String userName;
     private String password;
     private String name;
-    private int age;
-    private int sex;
+    private Integer age;
+    private Integer sex;
     private Date birthday;
     private Date created;
     private Date updated;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getUserName() {
+  public String getUserName() {
         return userName;
     }
 
@@ -45,19 +36,19 @@ public class User implements Serializable {
         this.name = name;
     }
 
-    public int getAge() {
+    public Integer getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(Integer age) {
         this.age = age;
     }
 
-    public int getSex() {
+    public Integer getSex() {
         return sex;
     }
 
-    public void setSex(int sex) {
+    public void setSex(Integer sex) {
         this.sex = sex;
     }
 
@@ -69,27 +60,30 @@ public class User implements Serializable {
         this.birthday = birthday;
     }
 
+    @Override
     public Date getCreated() {
         return created;
     }
 
+    @Override
     public void setCreated(Date created) {
         this.created = created;
     }
 
+    @Override
     public Date getUpdated() {
         return updated;
     }
 
+    @Override
     public void setUpdated(Date updated) {
         this.updated = updated;
     }
 
     @Override
     public String toString() {
-        return "User{" +
-                "id='" + id + '\'' +
-                ", userName='" + userName + '\'' +
+        return "OrderUser{" +
+                "userName='" + userName + '\'' +
                 ", password='" + password + '\'' +
                 ", name='" + name + '\'' +
                 ", age=" + age +
@@ -97,6 +91,11 @@ public class User implements Serializable {
                 ", birthday=" + birthday +
                 ", created=" + created +
                 ", updated=" + updated +
+                ", orderId=" + super.getId() +
+                ", userId=" + super.getUserId() +
+                ", orderNumber=" + super.getOrderNumber() +
+                ", orderCreated=" + super.getCreated() +
+                ", orderUpdated=" + super.getUpdated() +
                 '}';
     }
 }

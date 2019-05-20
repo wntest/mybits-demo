@@ -69,7 +69,7 @@ public class UserMapperTest {
     @Test
     public void insertUser() {
         User user = new User();
-        user.setId("5");
+        user.setId(5);
         user.setUserName("lisi2");
         user.setPassword("123456");
         user.setName("李四2");
@@ -89,7 +89,7 @@ public class UserMapperTest {
         user.setAge(24);
         user.setName("李四3");
         user.setUserName("lisi3");
-        user.setId("4");
+        user.setId(4);
         userMapper.updateUser(user);
     }
 

@@ -52,7 +52,7 @@ public class UserDaoTest {
     @Test
     public void insertUser() {
         User user = new User();
-        user.setId("4");
+        user.setId(4);
         user.setUserName("lisi");
         user.setPassword("123456");
         user.setAge(11);
@@ -68,7 +68,7 @@ public class UserDaoTest {
     @Test
     public void updateUser() {
         User user = new User();
-        user.setId("3");
+        user.setId(3);
         user.setUserName("lisi2");
         user.setPassword("123456");
         user.setAge(11);

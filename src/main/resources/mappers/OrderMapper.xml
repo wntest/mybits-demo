@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- mapper:根标签，namespace：命名空间，随便写，一般保证命名空间唯一 -->
+<mapper namespace="com.wn.mybatis.dao.OrderMapper">
+    <!-- statement，内容：sql语句。id：唯一标识，随便写，在同一个命名空间下保持唯一
+       resultType：sql语句查询结果集的封装类型,tb_user即为数据库中的表
+     -->
+    <!-- 查询订单和用户 1:1 查询 -->
+    <resultMap id="OrderUserResultMap" type="com.wn.mybatis.pojo.Order2" autoMapping="true">
+        <id column="id" property="id"/>
+        <!--association:完成子对象的映射-->
+        <!--property:子对象在父对象中的属性名-->
+        <!--javaType:子对象的java类型-->
+        <!--autoMapping:完成子对象的自动映射，若开启驼峰，则按驼峰匹配-->
+        <association property="user" javaType="com.wn.mybatis.pojo.User" autoMapping="true"/>
+    </resultMap>
+
+    <!-- 订单和订单明显 1:n 查询 -->
+    <resultMap id="OrderUserDetailResultMap" type="com.wn.mybatis.pojo.Order3" autoMapping="true">
+        <id column="id" property="id" />
+        <association property="user" javaType="com.wn.mybatis.pojo.User" autoMapping="true">
+            <id column="id" property="id" />
+        </association>
+        <collection property="detailList" javaType="List" ofType="com.wn.mybatis.pojo.OrderDetail" autoMapping="true">
+            <id column="id" property="id"/>
+        </collection>
+    </resultMap>
+    
+    <resultMap id="OrderUserDetailItemResultMap" type="com.wn.mybatis.pojo.Order4" autoMapping="true">
+        <id column="id" property="id"/>
+        <association property="user" javaType="com.wn.mybatis.pojo.User" autoMapping="true">
+            <id column="id" property="id"/>
+        </association>
+        <collection property="detailList" javaType="List" ofType="com.wn.mybatis.pojo.OrderDetail2" autoMapping="true">
+            <id column="id" property="id"/>
+            <association property="item" javaType="com.wn.mybatis.pojo.Item" autoMapping="true">
+                <id column="id" property="id"/>
+            </association>
+        </collection>
+    </resultMap>
+
+    <sql id="selectColumns">
+        o.id,o.user_id,o.order_number,o.created,o.updated,u.id,u.user_name,u.password,u.name,u.age,u.sex,u.birthday,u.created,u.updated
+    </sql>
+
+    <select id="queryOrderUserByOrderNumber" resultType="com.wn.mybatis.pojo.OrderUser">
+      select 
+       <include refid="selectColumns"/>
+       from tb_order o left join tb_user u on o.user_id = u.id where o.order_number = #{number}
+   </select>
+
+    <select id="queryOrderWithUserByOrderNumber" resultMap="OrderUserResultMap">
+        select * from tb_order o left join tb_user u on o.user_id = u.id where o.order_number = #{number}
+    </select>
+
+    <select id="queryOrderWithUserAndDetailByOrderNumber" resultMap="OrderUserDetailResultMap">
+        select * from tb_order o
+        left join tb_user u on o.user_id = u.id
+        left join tb_orderdetail od on o.id = od.order_id
+        where o.order_number = #{number}
+    </select>
+    
+    <select id="queryOrderWithUserAndDetailItemByOrderNumber" resultMap="OrderUserDetailItemResultMap">
+        select * from tb_order o
+        left join tb_user u on o.user_id = u.id
+        left join tb_orderdetail od on od.order_id = o.id
+        left join tb_item i on i.id = od.item_id
+        where o.order_number = #{number}
+    </select>
+</mapper>

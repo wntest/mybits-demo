@@ -50,12 +50,12 @@ status int(10) unsigned zerofill default null comment '0-成功；非0-失败',
 primary key(id)
 );
 alter table tb_orderdetail modify column id int not null comment '订单详情id';
-alter table tb_orderdetail modify column order_id comment '订单id';
+alter table tb_orderdetail modify column order_id int comment '订单id';
 alter table tb_orderdetail modify column total_price decimal(10,0) comment '总金额';
 alter table tb_orderdetail modify column item_id int comment '商品id';
 alter table tb_orderdetail modify column status int comment '订单状态';
-insert into values (1,1,199.0,2,0);
-insert into values (2,1,19.0,1,1);
+insert into tb_orderdetail values (1,1,199.0,2,0);
+insert into tb_orderdetail values (2,1,19.0,1,1);
 
  -- 创建商品表
  drop table if exists tb_item;
@@ -67,8 +67,9 @@ item_detail varchar(255) not null,
 primary key(id)
 )engine=InnoDB default charset=utf8;
 alter table tb_item modify column id int not null comment '商品id';
-alter table tb_item modify column item_name varchar(255) '商品名称';
-alter table tb_item modify column item_price decimal(10,2) '商品单价';
-alter table tb_item modify column item_price varchar(255) '商品描述';
+alter table tb_item modify column item_name varchar(255)  comment '商品名称';
+alter table tb_item modify column item_price decimal(10,2) comment '商品单价';
+alter table tb_item modify column item_price varchar(255) comment '商品描述';
 insert into tb_item values(1,'手机',1111.11, '智能手机');
 insert into tb_item values (2,'电脑',9999.90, '游戏本');
+alter table tb_item comment '商品信息表';

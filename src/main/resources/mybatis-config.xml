@@ -49,5 +49,8 @@
         <mapper resource="./mappers/MyMapper.xml" />
         <mapper resource="./mappers/UserDaoMapper.xml"/>
         <mapper resource="./mappers/UserMapper.xml"/>
+        <mapper resource="./mappers/OrderMapper.xml"/>
+        <!--注解方式可以使用如下配置方式-->
+        <!--<mapper class="com.wn.mybatis.dao.UserMapper"/>-->
     </mappers>
 </configuration>
