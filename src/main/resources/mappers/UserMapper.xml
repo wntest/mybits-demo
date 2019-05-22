@@ -155,4 +155,8 @@
             </if>
         </where>
     </select>
+
+    <select id="findAllUser" resultType="com.wn.mybatis.pojo.User">
+        select * from tb_user
+    </select>
 </mapper>

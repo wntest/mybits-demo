@@ -124,4 +124,12 @@ public class UserMapperTest {
         List<User> userList = userMapper.querySomeUsers(names);
         userList.forEach(user -> System.out.println(user));
     }
+
+    @Test
+    public void findAllUser() {
+        List<User> list = userMapper.findAllUser();
+        list.forEach((user) -> {
+            System.out.println(user);
+        });
+    }
 }

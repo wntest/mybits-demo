@@ -67,4 +67,10 @@ public interface UserMapper {
      * @return
      */
     List<User> searchUsers2(User user);
+
+    /**
+     * 查询所有用户
+     * @return
+     */
+    List<User> findAllUser();
 }
